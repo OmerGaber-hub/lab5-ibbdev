@@ -1,58 +1,247 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 IBBDev — منصة تبادل الخبرات البرمجية
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+منصة تفاعلية لطلاب علوم الحاسوب مبنية بـ Laravel 13 + Blade
+**Blade · Service Layer · SOLID · Pest · Alpine.js**
 
-## About Laravel
+[✨ المميزات](#-المميزات) · [🏗️ المعمارية](#️-المعمارية--solid) · [🗄️ قاعدة البيانات](#️-قاعدة-البيانات) · [🚀 التثبيت](#-التثبيت-السريع) · [🛣️ المسارات](#️-المسارات) · [🎨 الواجهات](#-الواجهات)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📖 ما هي IBBDev؟
+IBBDev هي منصة عربية لطلاب علوم الحاسوب لطرح الأسئلة البرمجية، تقديم الإجابات، وكسب نقاط السمعة (Reputation) عند اعتماد الحل. بُنيت كتطبيق نهائي لمادة هندسة البرمجيات — المستوى الرابع لتطبيق كل ما تعلمناه من المعامل 1→4 في مشروع واحد حقيقي.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ المميزات
+| الميزة | التفاصيل |
+| :--- | :--- |
+| **إدارة الحسابات** | تسجيل بـ `name` + `username` فريد (`@ahmed_dev`) + `avatar_path` + `reputation_points` |
+| **الأسئلة (posts)** | عنوان، وصف، `image_path` لتوضيح الخطأ، `is_solved` تلقائي عند الاعتماد |
+| **الإجابات (answers)** | `post_id` + `user_id` + `body` + `is_accepted` — لا يمكن الإجابة على سؤالك الخاص |
+| **السمعة (reputation)** | `+10` نقاط عند الاعتماد عبر `ReputationService` + سجل شفاف في `reputation_logs` (points + reason) |
+| **البحث والفلترة** | بحث بالعنوان/المحتوى، فلتر (الكل/محلولة/غير محلولة/أسئلتي)، ترتيب (الأحدث/الأقدم/الأكثر إجابات)، ترقيم 9/صفحة |
+| **الوسائط** | رفع صور الأسئلة و Avatar عبر `Storage::disk('public')` + `storage:link` + `asset('storage/...')` |
+| **الصلاحيات** | `PostPolicy` + `AnswerPolicy` — لا تعديل إلا للمالك، لا اعتماد إلا لصاحب السؤال |
+| **الواجهة** | Blade + Tailwind 3 + Alpine.js — RTL، Noto Kufi Arabic، متجاوبة 320→1440، Toast يختفي بعد 5s |
+| **الصفحات العامة** | `welcome` + `about` + `contact` + `faqs` + `users` بتصميم عصري |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🧰 التقنيات
+| الطبقة | التقنية | الإصدار |
+| :--- | :--- | :--- |
+| **Backend** | Laravel | 13.x |
+| **Language** | PHP | 8.3+ |
+| **Frontend** | Blade + Vite + Alpine.js | 3.4 |
+| **CSS** | Tailwind CSS | 3.x |
+| **Auth** | Laravel Breeze (Blade) | 2.x |
+| **DB** | SQLite (افتراضي) / MySQL | - |
+| **Testing** | Pest + PHPUnit | 4 / 12 |
+| **Quality** | Pint | 1.x |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## 🏗️ المعمارية — SOLID
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+`Browser` → `Route` → `Controller` (نحيف) → `Service` (Interface) → `Model` → `DB`
+↓
+`View` (Blade)
 
-```bash
-composer require laravel/boost --dev
+**لماذا Service Layer؟**
+* **SRP:** الـ Controller لا يعرف كيف تُحسب النقاط — فقط يستدعي `ReputationServiceInterface::awardForAcceptedAnswer()`.
+* **DIP:** الـ Controller يعتمد على Interface وليس class محددة — مربوط في `AppServiceProvider::register()` عبر `$this->app->bind(...)`.
 
-php artisan boost:install
+```php
+// AppServiceProvider.php
+$this->app->bind(PostServiceInterface::class, PostService::class);
+$this->app->bind(ReputationServiceInterface::class, ReputationService::class);
+Gate::policy(Answer::class, AnswerPolicy::class);
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+| المفهوم | التطبيق |
+| :--- | :--- |
+| **MVC** | `PostController` + `Post` + `posts/index.blade.php` |
+| **DI** | `__construct(PostServiceInterface $service)` |
+| **Policy** | `AnswerPolicy::accept()` → `post.user_id === user.id` |
+| **Form Request**| `StorePostRequest` (title/body/image_path) برسائل عربية |
+| **Factory/Seeder**| `PostFactory` + `PostSeeder` (saherqaid + 4 fake + 23 answer) |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🗄️ قاعدة البيانات
 
-## Code of Conduct
+### ERD
+```text
+users 1──∞ posts 1──∞ answers
+  │          │
+  │          └────∞ answers └── is_accepted → is_solved + reputation_logs
+  └────∞ reputation_logs
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### الجداول المطلوبة بالضبط
+*   **users**
+    `id PK, name VARCHAR, email VARCHAR UNIQUE, email_verified_at DATETIME, password VARCHAR, remember_token VARCHAR, username VARCHAR UNIQUE, -- @ahmed_dev avatar_path VARCHAR NULL, -- storage/avatars/... reputation_points INTEGER DEFAULT 0, created_at, updated_at`
+*   **posts (جدول الأسئلة)**
+    `id PK, user_id FK→users CASCADE, title VARCHAR, body TEXT, image_path VARCHAR NULL, -- storage/posts/... is_solved BOOLEAN DEFAULT false, created_at, updated_at`
+*   **answers**
+    `id PK, post_id FK→posts CASCADE, user_id FK→users CASCADE, body TEXT, is_accepted BOOLEAN DEFAULT false, created_at, updated_at`
+*   **reputation_logs (سجل الشفافية)**
+    `id PK, user_id FK→users CASCADE, points INTEGER (10), reason VARCHAR, created_at, updated_at -- مثال: reason = "تم اعتماد إجابته كحل لسؤال: كيف أحل NullPointer؟"`
+*   أخرى (Laravel): `sessions`, `cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs`, `password_reset_tokens`, `migrations`
 
-## Security Vulnerabilities
+> **التحقق:** `sqlite3 database/database.sqlite "SELECT sql FROM sqlite_master WHERE type='table' AND name IN ('users','posts','answers','reputation_logs');"`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🚀 التثبيت السريع
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**المتطلبات:** PHP 8.3 + Composer 2 + Node 20.19+/22.12+ + npm + Git
+
+### 1. نسخ المشروع
+```bash
+git clone https://github.com/OmerGaber-hub/lab5-ibbdev.git
+cd lab5-ibbdev
+```
+
+### 2. PHP
+```bash
+composer install
+# Windows
+Copy-Item .env.example .env
+# Linux/macOS
+cp .env.example .env
+php artisan key:generate
+```
+
+### 3. قاعدة البيانات (SQLite افتراضي)
+```bash
+# Windows
+New-Item database/database.sqlite -ItemType File -Force
+# Linux/macOS
+touch database/database.sqlite
+
+php artisan migrate --seed 
+# ينشئ saherqaid / saherqaid2020@gmail.com / password123 + 3 fake users + 9 posts + 23 answers + 6 logs
+# بديل: php artisan migrate:fresh --seed (يحذف ويعيد)
+```
+> `.env` افتراضي:
+> `DB_CONNECTION=sqlite`, `SESSION_DRIVER=database`, `CACHE_STORE=database`, `QUEUE_CONNECTION=database`
+
+### 4. الواجهة
+```bash
+npm install
+npm run build # إنتاج
+# أو للتطوير مع hot-reload:
+composer run dev # يشغل serve + queue:listen + vite معاً
+```
+ثم افتح `http://127.0.0.1:8000`
+
+> **التخزين:** `php artisan storage:link` (تم تنفيذه — يربط `public/storage` → `storage/app/public` للصور)
+
+### حسابات تجريبية
+| المستخدم | البريد | كلمة المرور | النقاط |
+| :--- | :--- | :--- | :--- |
+| **saherqaid** | saherqaid2020@gmail.com | password123 | 10+ |
+| **Test User** | test@example.com | password | 0 |
+
+---
+
+## 🛣️ المسارات
+`php artisan route:list`
+
+| الطريقة | المسار | الاسم | الحماية | الوظيفة |
+| :--- | :--- | :--- | :--- | :--- |
+| **GET** | `/` | `welcome` | عام | الرئيسية |
+| **GET** | `/welcome`, `/about`, `/contact`, `/faqs` | - | عام | صفحات عامة |
+| **GET** | `/users` | `users.index` | عام | قائمة المطورين (بحث + ترقيم 12) |
+| **GET** | `/users/{user}` | `users.show` | عام | ملف مستخدم + posts + reputation_logs |
+| **GET** | `/posts` | `posts.index` | عام | قائمة الأسئلة (بحث + فلتر + ترتيب + 9/صفحة) |
+| **GET** | `/posts/create` | `posts.create` | auth | نموذج سؤال جديد |
+| **POST** | `/posts` | `posts.store` | auth | حفظ (StorePostRequest + image_path) |
+| **GET** | `/posts/{post}` | `posts.show` | عام | تفاصيل + إجابات + اعتماد |
+| **GET** | `/posts/{post}/edit` | `posts.edit` | auth+owner | تعديل |
+| **PUT/PATCH** | `/posts/{post}` | `posts.update` | auth+owner | تحديث |
+| **DELETE** | `/posts/{post}` | `posts.destroy` | auth+owner | حذف (يحذف الصورة) |
+| **POST** | `/posts/{post}/answers` | `answers.store` | auth | إضافة إجابة (StoreAnswerRequest + منع الذات) |
+| **POST** | `/answers/{answer}/accept` | `answers.accept` | auth+owner | اعتماد → is_accepted + is_solved + +10 + log |
+| **GET/PATCH/DELETE** | `/profile` | `profile.*` | auth | تعديل الملف (name/username/email/avatar_path) |
+
+> **الصور:** `<img src="{{ asset('storage/'.$post->image_path) }}">` ، **الأفاتار:** `<img src="{{ asset('storage/'.$user->avatar_path) }}">`
+
+---
+
+## 🎨 الواجهات
+
+```text
+resources/views/
+├── layouts/app.blade.php        (RTL, Noto Kufi, navigation + toast + footer)
+├── components/toast.blade.php   (Alpine, 5s auto-dismiss, shrink bar)
+├── welcome.blade.php            (Hero + stats + 6 features + 3 steps + latest 3 posts + CTA)
+├── about.blade.php              (Hero + رسالة + قيم + stack + timeline 1→5)
+├── contact.blade.php            (3 info cards + form + map)
+├── faqs.blade.php               (search + categories + accordion Alpine)
+├── users/index.blade.php        (search + grid 3col + pagination 12)
+├── users/show.blade.php         (cover + avatar + 3 stats + posts + logs)
+├── posts/index.blade.php        (search + filter pills + sort + grid 3col + pagination 9 + solved badge + "كيف حصل على النقاط؟")
+├── posts/create.blade.php       (drag&drop image_path preview + tips)
+├── posts/edit.blade.php         (current image + is_solved toggle + danger zone)
+└── posts/show.blade.php         (author + image_path + answers + accept + add answer)
+```
+
+> **Toast:** `layouts/app.blade.php` يحوي حاوية `fixed top-4 end-4` تعرض `session('success')/error` عبر `<x-toast type>` — يختفي بعد 5 ثوان مع `x-transition` وشريط shrink.
+
+---
+
+## 🔄 تدفق السمعة
+1. `POST /posts/{post}/answers` → `AnswerController@store` → `AnswerService::createAnswer()` → يمنع إذا `post.user_id == auth.id`
+2. `POST /answers/{answer}/accept` → `AnswerController@accept` → `Gate::authorize('accept')` → `ReputationService::awardForAcceptedAnswer(answer)` → `answer.is_accepted = true` → `post.is_solved = true` → `user.increment('reputation_points', 10)` → `ReputationLog::create(user_id, points:10, reason: "تم اعتماد إجابته...")`
+
+> **عرضه في:** `posts/show` (زر "اعتماد كحل +10")، `posts/index` (بطاقة "محلول ✓" + `@username` حصل على 10 نقاط → رابط `users.show`)، `users/show` + `profile/edit` (سجل `reputation_logs`).
+
+---
+
+## 🧪 الاختبارات
+```bash
+php artisan test --compact       # كل الاختبارات
+php artisan test --filter=Auth   # فئة محددة
+vendor/bin/pint --format agent   # تنسيق
+npm run build                    # بناء الواجهة
+```
+*   **Pest 4** — 25 اختبار (Auth + Profile + Example) — `phpunit.xml` يستخدم `sqlite :memory:`.
+*   **Factory:** `UserFactory` (username/avatar_path) + `PostFactory` (image_path/is_solved)
+*   **Seeder:** `PostSeeder` — firstOrCreate(saherqaid) + 3 fake + 9 posts (5 عربية) + 23 answers + logs.
+
+---
+
+## 📁 هيكل المشروع
+```text
+app/
+├── Contracts/PostServiceInterface.php
+├── Services/{PostService,AnswerService,ReputationService}.php
+├── Http/{Controllers/PostController,AnswerController,UserController,ProfileController, Auth/*}
+├── Http/Requests/{StorePostRequest,UpdatePostRequest,StoreAnswerRequest,ProfileUpdateRequest}
+├── Models/{User,Post,Answer,ReputationLog}.php     # User: posts/answers/reputationLogs
+└── Policies/{PostPolicy,AnswerPolicy}
+database/{factories,migrations,seeders/PostSeeder.php}
+resources/views/{posts,users,profile,auth,welcome,about,contact,faqs}
+routes/web.php
+tests/Feature/{Auth,Profile,Example}
+```
+
+---
+
+## 🤝 المساهمة
+```bash
+git checkout -b feature/اسم-الميزة
+# ... code + tests ...
+vendor/bin/pint --format agent
+php artisan test --compact
+git commit -m "feat: وصف واضح"
+git push origin feature/اسم-الميزة
+# افتح Pull Request
+```
+
+---
+
+## 📄 الترخيص
+**MIT** — مشروع تعليمي لمقرر هندسة البرمجيات.
