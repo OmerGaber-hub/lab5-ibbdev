@@ -1,0 +1,56 @@
+@baseUrl = http://127.0.0.1:8000/api
+@token = {{login.response.body.token}}
+
+### 1. تسجيل مستخدم جديد
+# @name register
+POST {{baseUrl}}/register
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "مستخدم تجريبي",
+    "username": "test_user_api",
+    "email": "api@test.com",
+    "password": "password123"
+}
+
+### 2. تسجيل الدخول
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "api@test.com",
+    "password": "password123"
+}
+
+### 3. استرجاع قائمة الأسئلة (لا تحتاج تسجيل دخول)
+GET {{baseUrl}}/questions
+Accept: application/json
+
+### 4. طرح سؤال جديد (تحتاج تسجيل دخول)
+POST {{baseUrl}}/questions
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "سؤال عن تجربة الـ API",
+    "body": "هذا السؤال تم طرحه لتجربة مسار إضافة الأسئلة في الـ API، هل يعمل بنجاح؟"
+}
+
+### 5. إضافة إجابة لسؤال (يجب تغيير رقم السؤال في الرابط)
+POST {{baseUrl}}/questions/1/answers
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+    "body": "نعم، النظام يعمل بشكل ممتاز!"
+}
+
+### 6. تسجيل الخروج
+POST {{baseUrl}}/logout
+Accept: application/json
+Authorization: Bearer {{token}}

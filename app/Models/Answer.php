@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['question_id', 'user_id', 'body', 'is_accepted'];
 
     protected $casts = ['is_accepted' => 'boolean'];
