@@ -138,17 +138,12 @@ composer run dev # يشغل serve + queue:listen + vite معاً
 
 > **التخزين:** `php artisan storage:link` (تم تنفيذه — يربط `public/storage` → `storage/app/public` للصور)
 
-### حساب تجريبي
-*   **البريد الإلكتروني:** `omer1234@gmail.com`
-*   **كلمة المرور:** `12345678`
-
 ---
 
 ### حسابات تجريبية
 | المستخدم | البريد | كلمة المرور | النقاط |
 | :--- | :--- | :--- | :--- |
-| **saherqaid** | saherqaid2020@gmail.com | password123 | 10+ |
-| **Test User** | test@example.com | password | 0 |
+| **OmerGaber** | omer1234@gmail.com| 12345678 | 10+ |
 
 ---
 
